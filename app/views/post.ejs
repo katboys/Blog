@@ -1,0 +1,52 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>把孤单当成枕头上的温暖</title>
+<meta name="keywords" content="Wedding,婚礼主题模板,爱情模板,爱情网站模板,情人节,情人节个人网站模板" />
+<meta name="description" content="这是一个有关Wedding的html5 css3 网站模板适用于各种婚礼主题" />
+<link href="/css/styles.css" rel="stylesheet">
+</head>
+<body>
+<header>
+    <nav id="nav">
+        <ul>
+            <li><a href="/">首页</a></li>
+            <li><a href="/list/">文章列表</a></li>
+            <li><a href="/about/">关于我</a></li>
+        </ul>
+        <script src="/js/silder.js"></script><!--获取当前页导航 高亮显示标题-->
+    </nav>
+</header>
+<div class="mainContent">
+    <aside>
+        <section class="newpic">
+            <h2>最新文章</h2>
+            <ul>
+                <li><a href="/"><img src="/images/01.jpg"></a></li>
+            </ul>
+        </section>
+        <section class="taglist">
+            <h2>全部标签</h2>
+            <ul>
+                <% tagList.forEach(function(tag){ %>
+
+                <li><a href="<%= tag.link %>"><%= tag.name %></a></li>
+
+                <% }) %>
+            </ul>
+        </section>
+    </aside>
+    <div class="blogitem">
+
+        <% post.link = "/posts/" + post._id %>
+        <article>
+            <h2 class="title"><a href="javascript:;"><%= post.title %></a></h2>
+            <ul class="text">
+                <%= post.content %>
+            </ul>
+        </article> 
+    </div>
+</div>
+</body>
+</html>

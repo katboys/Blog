@@ -1,0 +1,26 @@
+{
+  "name": "NodeBlog",
+  "version": "0.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "node.js",
+    "blog",
+    "koa.js"
+  ],
+  "dependencies":{
+    "koa":"*",
+    "koa-views":"*",
+    "koa-ejs":"*",
+    "koa-static":"*",
+    "koa-router":"*",
+    "bluebird":"*",
+    "co":"*",
+    "thunkify":"*"
+  },
+  "author": "qinjia",
+  "license": "BSD"
+}
