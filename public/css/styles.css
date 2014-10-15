@@ -15,7 +15,7 @@ header nav ul li { line-height: 43px; display: block }
 header nav ul li a { color: #484848; float: left; padding: 0 20px; margin-right: 2px; }
 header nav ul li a:hover, #nav_current { color: #fff; background: #01ABAA; }
 /* mainContent */
-.mainContent { background: #E8E5DD; width: 1000px; margin: 20px auto; overflow: hidden }
+.mainContent { background: #E8E5DD; width: 100%; margin: 20px auto; overflow: hidden }
 aside { width: 270px; float: right; }
 .avatar { margin: 20px auto; width: 160px; height: 160px; border-radius: 160px; -moz-border-radius: 160px; -webkit-border-radius: 160px; overflow: hidden; }
 .avatar a { display: block; padding-top: 97px; width: 160px; height: 63px; background: url(../images/photo.jpg) no-repeat; background-size: 160px 160px }
