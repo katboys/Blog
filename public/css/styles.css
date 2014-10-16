@@ -1,7 +1,11 @@
 @charset "gb2312";
 /* CSS Document */
-* { margin: 0; padding: 0 }
-body { background: #DDD6CC; font: 12px "宋体", "Arial Narrow", HELVETICA; color: #3F3E3C; line-height: 1.5; }
+* {
+-webkit-box-sizing: border-box;
+-moz-box-sizing: border-box;
+box-sizing: border-box;
+}
+body { background: #DDD6CC; font: 12px "宋体", "Arial Narrow", HELVETICA; color: #3F3E3C; line-height: 1.5; margin:0;}
 img { border: 0; vertical-align: middle }
 p { display: block; }
 ul { list-style: none; }
@@ -9,13 +13,51 @@ a { color: #a6a6a6; text-decoration: none; transition: All 0.5s ease; -webkit-tr
 a:hover { color: #000; }
 .blank { height: 5px; overflow: hidden; width: 100%; margin: auto; clear: both }
 /* nav */
-header { width: 100%; height: 43px; background: -webkit-gradient(linear, 78% 100%, 78% 41%, from(#EFEEEC), to(#fff)); box-shadow: #D0C9C0 2px 2px 3px }
+header { width: 100%; height: 43px; background: -webkit-gradient(linear, 78% 100%, 78% 41%, from(#EFEEEC), to(#fff)); box-shadow: #D0C9C0 2px 2px 3px ;position:absolute;top:0px;}
 header nav { margin: 0 auto; width: 980px; text-align: center }
 header nav ul li { line-height: 43px; display: block }
 header nav ul li a { color: #484848; float: left; padding: 0 20px; margin-right: 2px; }
 header nav ul li a:hover, #nav_current { color: #fff; background: #01ABAA; }
-/* mainContent */
-.mainContent { background: #E8E5DD; width: 100%; margin: 20px auto; overflow: hidden }
+.clearFix:after{
+ clear:both;
+ display:block;
+ visibility:hidden;
+ height:0;
+ line-height:0;
+ content:'';
+
+}
+.clearFix{zoom:1;} /*解决ie6/7兼容问题*/
+.container {
+    margin-right: auto;
+    margin-left: auto;
+    /*padding-left: 15px;*/
+    /*padding-right: 15px;*/
+    /*background: #E8E5DD;*/
+    width: 100%;
+    /*position:relative;*/
+}
+@media (min-width: 768px){
+    .container {
+        width: 750px;
+    }
+}
+@media (min-width: 992px){
+    .container {
+        width: 970px;
+    }
+}
+@media (min-width: 1200px){
+    .container {
+        width: 1050px;
+    }
+}
+@media (min-width: 1440px){
+    .container {
+        width: 1250px;
+    }
+}
+.mainContent { background: #E8E5DD; margin: 20px auto;position:relative;top:50px; }
 aside { width: 270px; float: right; }
 .avatar { margin: 20px auto; width: 160px; height: 160px; border-radius: 160px; -moz-border-radius: 160px; -webkit-border-radius: 160px; overflow: hidden; }
 .avatar a { display: block; padding-top: 97px; width: 160px; height: 63px; background: url(../images/photo.jpg) no-repeat; background-size: 160px 160px }
