@@ -19,7 +19,11 @@
     "koa-router":"*",
     "bluebird":"*",
     "co":"*",
-    "thunkify":"*"
+    "thunkify-wrap":"*",
+    "underscore":"*",
+    "mongodb":"*",
+    "markdown":"*",
+    "mongoose":"*"
   },
   "author": "qinjia",
   "license": "BSD"

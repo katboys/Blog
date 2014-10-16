@@ -1,5 +1,6 @@
 var PostController = require('../app/controllers/post');
 var WriteController = require('../app/controllers/write');
+var TagController = require('../app/controllers/tag');
 
 exports.init = function(app) {
 
@@ -21,7 +22,8 @@ exports.init = function(app) {
 	app.get('/posts/:id', PostController.show);
 
 	//分类
-	//app.get('/tags/:tag', PostController.classify);
+	app.get('/tags/:tag', TagController.list);
+
 	//写文章
 	app.get('/write', WriteController.render);
 

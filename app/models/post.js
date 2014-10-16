@@ -19,9 +19,10 @@ module.exports = {
 
     save: function *(data) {
         var post = new Post(data);
-        var save = thunkify(post.save);
+        var save = thunkify(post.save,post);
 
-        yield save();
+        var result = yield save();
+        return result[0];
     }
 
 };
