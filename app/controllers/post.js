@@ -27,19 +27,6 @@ module.exports = {
 		yield this.render('list', []);
 	},
 
-	create: function * () {
-		var data = this.body['post'];
-		var post = yield postModel(data);
-		var tag = yield tagModel.save([{
-			name: "flatten",
-			posts: [{
-                id:post._id,
-                name:post.name
-			}]
-		}]);
-		console.log(tag);
-	},
-
 	show: function * () {
 		var id = this.params['id'];
 		var post = yield postModel.findById(id);

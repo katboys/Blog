@@ -4,6 +4,7 @@ var koa = require('koa');
 var router = require('koa-router');
 var render = require('koa-views');
 var static = require('koa-static');
+var bodyParser = require('koa-bodyparser');
 var mongoose = require('mongoose');
 
 var routes = require('./config/routes');
@@ -21,6 +22,8 @@ db.on('connected',function() {
 app.use(static(path.join(__dirname, "/public")));
 
 app.use(render(path.join(__dirname,"./app/views"),{default:"ejs"}));
+
+app.use(bodyParser());
 
 app.use(router(app));
 

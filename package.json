@@ -16,6 +16,8 @@
     "koa-views":"*",
     "koa-ejs":"*",
     "koa-static":"*",
+    "koa-bodyparser":"*",
+    "koa-middlewares":"*",
     "koa-router":"*",
     "bluebird":"*",
     "co":"*",

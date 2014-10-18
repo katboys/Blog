@@ -5,7 +5,10 @@ var Schema = mongoose.Schema;
 
 var TagSchema = new Schema({
 	name: String,
-	posts: [String],
+    posts: [{
+        id:String,
+        name:String
+    }],
 	meta: {
 		createAt: {
 			type: Date,

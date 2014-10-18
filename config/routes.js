@@ -28,6 +28,6 @@ exports.init = function(app) {
 	app.get('/write', WriteController.render);
 
 	//保存文章
-	//app.post('/posts/write', WriteController.post);
+	app.post('/posts/write', WriteController.add);
 };
 
