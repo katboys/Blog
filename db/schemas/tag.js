@@ -6,19 +6,17 @@ var Schema = mongoose.Schema;
 var TagSchema = new Schema({
 	name: String,
     posts: [{
-        id:String,
-        name:String
+        post:String,
+        title:String
     }],
 	meta: {
 		createAt: {
 			type: Date,
-		default:
-			Date.now()
+            default: Date.now()
 		},
 		updateAt: {
 			type: Date,
-		default:
-			Date.now()
+            default: Date.now()
 		}
 	}
 });

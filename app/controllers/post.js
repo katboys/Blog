@@ -24,13 +24,27 @@ module.exports = {
 	},
 
 	list: function * () {
-		yield this.render('list', []);
+        var postList = yield postModel.fetch();
+
+		postList = postList.map(function(post) {
+			post.content = markdown.toHTML(post.content);
+			return post;
+		});
+
+		var tagList = yield tagModel.fetch();
+
+		yield this.render('list', {
+			tagList: tagList,
+			postList: postList
+		});
 	},
 
 	show: function * () {
 		var id = this.params['id'];
+        console.log(id);
 		var post = yield postModel.findById(id);
 
+        console.log(JSON.stringify(post));
 		post.content = markdown.toHTML(post.content);
 
 		yield this.render('post', {

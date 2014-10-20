@@ -24,26 +24,20 @@ module.exports = {
         return tag;
 	},
 
-    save: function *(tags) {
+    save: function *(tag) {
         var findByName = thunkify(Tag.findByName,Tag);
-        //tags = tags.map(function(tag) {
-            var tag = tags[0];
-            var tagInfo = yield findByName(tag.name);
-            if (!tagInfo) {
-                tagInfo = _.extend(tag);
-            } else {
-                tagInfo.posts = tagInfo.posts.concat(tag.posts) ;
-            }
-            //return tagInfo;
-        //});
 
-        tag = new Tag(tag);
-        var save = thunkify(tag.save,tag);
+        var tagInfo = yield findByName(tag.name);
+
+        if (!tagInfo) {
+            tagInfo = new Tag(tag);
+        } else {
+            tagInfo.posts = tagInfo.posts.concat(tag.posts);
+        }
+
+        var save = thunkify(tagInfo.save,tagInfo);
         var result = yield save();
-        //tags.forEach(function(tag) {
-            //var tag = new Tag(tag);
-            //tag.save();
-        //});
+        return result;
     }
 
 };

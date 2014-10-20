@@ -9,7 +9,6 @@ module.exports = {
 	list: function * () {
         var tag = this.params['tag'];
         var tagInfo = yield tagModel.findById(tag);
-        console.log(tagInfo);
 
         var tagList = yield tagModel.fetch();
 
@@ -19,21 +18,17 @@ module.exports = {
         });
 	},
 
-    create: function * () {
-        
-        yield tagModel.save(data);
+    add: function * (tags) {
+
+        var options = tags.map(function(tag) {
+            return tagModel.save(tag);
+        });
+
+        yield options;
     },
 
     show: function * () {
-        var id = this.params['id'];
-        var tag = yield tagModel.findById(id);
-
-        tag.content = markdown.toHTML(tag.content);
-
-        yield this.render('tag',{
-            tagList:[],
-            tag:tag
-        });
+        
     }
 
 };
