@@ -51,7 +51,17 @@ module.exports = {
 			tagList: [],
 			post: post
 		});
-	}
+	},
 
+    del: function * () {
+        var id = this.request.body['id'];
+        
+        var result = yield postModel.del(id);
+
+        this.status = 200;
+        this.body = {
+            "code":"S_OK"
+        };
+    }
 };
 
