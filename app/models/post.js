@@ -1,3 +1,4 @@
+var _ = require('underscore');
 var co = require('co');
 var thunkify = require('thunkify-wrap');
 
@@ -21,23 +22,27 @@ module.exports = {
 		var post = new Post(data);
 		var save = thunkify(post.save, post);
 
-        var result = yield save();
-        return result[0];
-    },
+		var result = yield save();
+		return result[0];
+	},
 
-    update: function *(id,data) {
-        var update = thunkify(Post.findOneAndUpdate,Post);
+	update: function * (id, data) {
+        var post = yield this.findById(id);
 
-        var result = yield update(id,data);
+        post = _.extend(post,data);
 
-        return result;
-    },
+        var save = thunkify(post.save,post);
+
+		var result = yield save();
+
+		return result;
+	},
 
 	del: function * (id) {
-        var post = yield this.findById(id);
-        var remove = thunkify(post.remove,post);
-        var result = yield remove();
-        return result;
+		var post = yield this.findById(id);
+		var remove = thunkify(post.remove, post);
+		var result = yield remove();
+		return result;
 	}
 
 };

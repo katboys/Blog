@@ -24,20 +24,49 @@ module.exports = {
         return tag;
 	},
 
-    save: function *(tag) {
-        var findByName = thunkify(Tag.findByName,Tag);
+    linkPost: function * (post) {
+        var tagsInfo = yield post.tags.map(function(tag){
+            return this.findByName(tag);
+        }.bind(this));
 
-        var tagInfo = yield findByName(tag.name);
+        yield tagsInfo.map(function(tag,index){
+            var posts = [{
+                post:post._id,
+                title:post.title
+            }];
+            if(tag){
+                tag.posts = tag.posts.concat(posts);
+            } else {
+                tag = new Tag({
+                    name:post.tags[index],
+                    posts:posts
+                });
+            }
+            
+            var save = thunkify(tag.save,tag);
 
-        if (!tagInfo) {
-            tagInfo = new Tag(tag);
-        } else {
-            tagInfo.posts = tagInfo.posts.concat(tag.posts);
-        }
+            return save();
+        });
+    },
 
-        var save = thunkify(tagInfo.save,tagInfo);
-        var result = yield save();
-        return result;
+    unlinkPost: function * (tags,id) {
+        tags = yield tags.map(function(tag) {
+            return this.findByName(tag);
+        }.bind(this));
+
+        console.log(tags)
+        yield tags.map(function(tag){
+            tag.posts = tag.posts.filter(function(post) {
+                return post.post !== id;
+            });
+
+            if (!tag.posts.length) {
+                var remove = thunkify(tag.remove,tag);
+                return remove();
+            }
+            var save = thunkify(tag.save,tag);
+            return save();
+        });
     }
 
 };

@@ -6,34 +6,37 @@ var UserController = require('../app/controllers/user');
 exports.init = function(app) {
 
 	//首页
-	app.get('/', PostController.home);
+	app.get('/', PostController.renderHome);
 
 	//首页
-	app.get('/home', PostController.home);
+	app.get('/home', PostController.renderHome);
 
 	//列表页
-	app.get('/posts/list', PostController.list);
+	app.get('/posts/list', PostController.renderList);
 
 	//列表页
-	app.get('/posts/page/:page', PostController.list);
+	app.get('/posts/page/:page', PostController.renderList);
 
-	//文章
-	app.get('/posts/:id', PostController.show);
+	//文章详情页
+	app.get('/posts/:id', PostController.renderPost);
 
-	//分类
+	//分类文章列表页
 	app.get('/tags/:tag', TagController.list);
 
-	//写文章
+	//写文章页
 	app.get('/write', WriteController.render);
 
-	//编辑文章
+	//编辑文章页
 	app.get('/posts/edit/:id', WriteController.show);
 
 	//删除文章
-	app.post('/posts/delete', PostController.del);
+	app.post('/posts/delete', PostController.deletePost);
 
 	//保存文章
-	app.post('/posts/write', WriteController.add);
+	app.post('/posts/write', WriteController.addPost);
+
+	//更新文章
+	app.post('/posts/update/:id', WriteController.updatePost);
 
 	//关于我
 	app.get('/about', UserController.show);

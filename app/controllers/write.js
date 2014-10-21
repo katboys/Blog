@@ -1,15 +1,20 @@
+var _ = require('underscore');
 var co = require('co');
 var thunkify = require('thunkify-wrap');
 
 var postModel = require('../models/post');
+var tagModel = require('../models/tag');
 
 var tagController = require("./tag");
 
 module.exports = {
 
     render: function * () {
+        var tagList = yield tagModel.fetch();
+
         yield this.render('write',{
-            post:{}
+            post:{},
+            tagList:tagList
         });
     },
 
@@ -18,22 +23,20 @@ module.exports = {
 
         var post = yield postModel.findById(id);
 
+        var tagList = yield tagModel.fetch();
+
         yield this.render('write',{
-            post: post
+            post: post,
+            tagList:tagList
         });
     },
-    add: function * () {
+
+    addPost: function * () {
         var data = this.request.body;
 
         var post = yield postModel.save(data);
 
-        yield tagController.add([{
-			name: post.tags,
-			posts: [{
-                post:post._id,
-                title:post.title
-			}]
-		}]);
+        yield tagModel.linkPost(post);
 
         this.status = 200;
 
@@ -42,13 +45,24 @@ module.exports = {
         };
     },
 
-    update: function * () {
+    updatePost: function * () {
         var data = this.request.body;
         var id = this.params['id'];
 
-        var result = yield postModel.update(id,data);
+        var post = yield postModel.findById(id);
+
+        yield tagModel.unlinkPost(post.tags,id);
+
+        post = _.extend(post,data);
+        
+        var update = thunkify(post.save,post);
+
+        post = yield update();
+        
+        yield tagModel.linkPost(post[0]);
 
         this.status = 200;
+
         this.body = {
             "code": "S_OK"
         };

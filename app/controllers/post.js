@@ -7,7 +7,7 @@ var tagModel = require('../models/tag');
 
 module.exports = {
 
-	home: function * () {
+    renderHome: function * () {
 		var postList = yield postModel.fetch();
 
 		postList = postList.map(function(post) {
@@ -23,7 +23,7 @@ module.exports = {
 		});
 	},
 
-	list: function * () {
+	renderList: function * () {
         var postList = yield postModel.fetch();
 
 		postList = postList.map(function(post) {
@@ -39,12 +39,10 @@ module.exports = {
 		});
 	},
 
-	show: function * () {
+    renderPost: function * () {
 		var id = this.params['id'];
-        console.log(id);
 		var post = yield postModel.findById(id);
 
-        console.log(JSON.stringify(post));
 		post.content = markdown.toHTML(post.content);
 
 		yield this.render('post', {
@@ -53,10 +51,14 @@ module.exports = {
 		});
 	},
 
-    del: function * () {
+    deletePost: function * () {
         var id = this.request.body['id'];
         
-        var result = yield postModel.del(id);
+        var post = yield postModel.del(id);
+
+        var tags = post.tags;
+
+        var result = yield tagModel.unlinkPost(tags,id);
 
         this.status = 200;
         this.body = {

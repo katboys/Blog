@@ -31,10 +31,9 @@
                 data:"id=<%= post._id %>"
             }).done(function(res){
                 if(res.code === "S_OK"){
-                    alert("ok")    
+                    window.location.href = "/";
                 }
             }).fail(function(){
-                alert("nok")   ;
             })
         });
     });

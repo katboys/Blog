@@ -8,6 +8,9 @@
 
         <div class="postTags">
             <input type="text" id="txtTag" class="" placeholder="标签，如：node.js" value="<%- post.tags %>">          
+            <ul style="display:none;" id="tagList">
+            
+            </ul>
         </div>
 
         <div class="editor">
@@ -24,6 +27,14 @@
         "发布文章" %></button>
     </div>
 </div>
+<script>
+    var postId = "<%- post._id %>";
+    <% tagList = tagList.map(function(tag){ %>
+    <%     return tag.name; %>
+    <% }) %>
+    var tagList = <%- JSON.stringify(tagList) %>;
+
+</script>
 <script src="/js/jquery.js" type="text/javascript"></script>
 <script src="/js/editor.js" type="text/javascript"></script>
 <script src="/js/write.js" type="text/javascript"></script>

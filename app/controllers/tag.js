@@ -18,13 +18,8 @@ module.exports = {
         });
 	},
 
-    add: function * (tags) {
-
-        var options = tags.map(function(tag) {
-            return tagModel.save(tag);
-        });
-
-        yield options;
+    add: function * (tag) {
+        yield tagModel.save(tag);
     },
 
     show: function * () {
