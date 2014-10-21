@@ -23,6 +23,14 @@ module.exports = {
 
         var result = yield save();
         return result[0];
+    },
+
+    update: function *(id,data) {
+        var update = thunkify(Post.findOneAndUpdate,Post);
+
+        var result = yield update(id,data);
+
+        return result;
     }
 
 };

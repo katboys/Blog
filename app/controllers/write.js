@@ -40,6 +40,18 @@ module.exports = {
         this.body = {
             "code": "S_OK"
         };
+    },
+
+    update: function * () {
+        var data = this.request.body;
+        var id = this.params['id'];
+
+        var result = yield postModel.update(id,data);
+
+        this.status = 200;
+        this.body = {
+            "code": "S_OK"
+        };
     }
 };
 
