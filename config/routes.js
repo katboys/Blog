@@ -26,13 +26,16 @@ exports.init = function(app) {
 	//写文章
 	app.get('/write', WriteController.render);
 
-    //编辑文单
-    app.get('/posts/edit/:id', WriteController.show);
+	//编辑文章
+	app.get('/posts/edit/:id', WriteController.show);
+
+	//删除文章
+	app.post('/posts/delete', PostController.del);
 
 	//保存文章
 	app.post('/posts/write', WriteController.add);
 
-    //关于我
-    app.get('/about', UserController.show);
+	//关于我
+	app.get('/about', UserController.show);
 };
 
