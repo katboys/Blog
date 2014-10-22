@@ -10,15 +10,26 @@ var tagController = require("./tag");
 module.exports = {
 
     render: function * () {
+        if (!this.session.user) {
+            this.redirect('/');
+            return;
+        }
+
         var tagList = yield tagModel.fetch();
 
         yield this.render('write',{
+            session:this.session,
             post:{},
             tagList:tagList
         });
     },
 
     show: function * () {
+        if (!this.session.user) {
+            this.redirect('/');
+            return;
+        }
+
         var id = this.params['id'];
 
         var post = yield postModel.findById(id);
@@ -26,6 +37,7 @@ module.exports = {
         var tagList = yield tagModel.fetch();
 
         yield this.render('write',{
+            session:this.session,
             post: post,
             tagList:tagList
         });

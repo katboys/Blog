@@ -7,10 +7,15 @@
         </div>
 
         <div class="postTags">
-            <input type="text" id="txtTag" class="" placeholder="标签，如：node.js" value="<%- post.tags %>">          
-            <ul style="display:none;" id="tagList">
-            
+            <input type="text" id="txtTag" class="" placeholder="标签，如：node.js" value="">          
+            <ul style="display:<%= post.tags ? "" : "none"%>" id="ulTagItemList" class="tagItemContainer">
+                <% if(post.tags) { %>
+                <%     post.tags.forEach(function(tag){ %>
+                           <li><input type="text" value="<%- tag %>" readonly="" /><a href="javascript:;">×</a></li> 
+                <%     }) %>
+                <% } %>
             </ul>
+            <ul style="display:none;" id="ulTagList" class="tagTipContainer"> </ul>
         </div>
 
         <div class="editor">

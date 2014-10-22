@@ -13,6 +13,7 @@ module.exports = {
         var tagList = yield tagModel.fetch();
 
         yield this.render('tags',{
+            session:this.session,
             tagInfo:tagInfo,
             tagList:tagList
         });

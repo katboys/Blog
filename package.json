@@ -25,7 +25,9 @@
     "underscore":"*",
     "mongodb":"*",
     "markdown":"*",
-    "mongoose":"*"
+    "mongoose":"*",
+    "koa-session-store":"*",
+    "koa-session-mongoose":"*"
   },
   "author": "qinjia",
   "license": "BSD"

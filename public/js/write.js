@@ -6,7 +6,9 @@
 	function submitPost() {
 		var post = {
 			title: $('#txtTitle').val().trim(),
-			tags: [$('#txtTag').val().trim()],
+            tags: $.map($('#ulTagItemList').children(),function(el){
+                return $(el).find('input').val();
+            }),
 			content: $('#txtContent').val().trim()
 		};
 
@@ -33,20 +35,56 @@
     function showTagListTip () {
         var val = $(this).val().trim();
 
+        if (val === "") {
+            $('#ulTagList').hide();
+            return;
+        }
+
         var htmlBuf = [];
+        htmlBuf.push('<li><a href="javascript:;">' + val + '</a></li>');
+
         $.each(tagList, function(index,tag) {
             if (tag.indexOf(val) > -1) {
-                htmlBuf.push('<li>' + ('<span>' + tag + '</span>') + '</li>');
+                htmlBuf.push('<li>' + ('<a href="javascript:;">' + tag + '</a>') + '</li>');
             }
         })
-        //if (htmlBuf.length) {
-            $("#tagList").html(htmlBuf.join('')).show();
-        //}
+        $("#ulTagList").html(htmlBuf.join('')).show().children().eq(0).addClass('active');
+    }
+
+    function createTag(name) {
+        $('#ulTagItemList').append('<li><input type="text" value="' + name + '" readonly/><a href="javascript:;">×</a></li>').show();
+    }
+
+    function setSelectedTag (e) {
+        var target = $(e.target);
+
+        if (target.is("ul")) {
+            return;
+        }
+
+        if (target.is("li")) {
+            target = target.find('a');
+        }
+
+        var selectedTag = target.html();
+        createTag(selectedTag);
+        $('#txtTag').val("");
+        $('#ulTagList').hide();
+    }
+
+    function removeSelectedTag(e) {
+        var target = $(e.target);
+        if (!target.is('a')) {
+            return;
+        }
+        target.parent().remove();   
     }
 
 	function initEvents() {
 		$("#btnSubmit").on('click', submitPost);
         $('#txtTag').on('keyup', showTagListTip);
+        $("#ulTagList").on('click',setSelectedTag);
+        $('#ulTagItemList').on('click',removeSelectedTag);
 	}
 
 	$(function() {

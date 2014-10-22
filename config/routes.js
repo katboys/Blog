@@ -40,5 +40,11 @@ exports.init = function(app) {
 
 	//关于我
 	app.get('/about', UserController.show);
+
+    //登录页
+    app.get('/login', UserController.render);
+
+    //登录
+    app.post('/user/login', UserController.login);
 };
 

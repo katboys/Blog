@@ -18,6 +18,7 @@ module.exports = {
 		var tagList = yield tagModel.fetch();
 
 		yield this.render('index', {
+            session: this.session,
 			tagList: tagList,
 			postList: postList
 		});
@@ -34,6 +35,7 @@ module.exports = {
 		var tagList = yield tagModel.fetch();
 
 		yield this.render('list', {
+            session: this.session,
 			tagList: tagList,
 			postList: postList
 		});
@@ -45,8 +47,13 @@ module.exports = {
 
 		post.content = markdown.toHTML(post.content);
 
+        var tagList = yield post.tags.map(function(tag) {
+            return tagModel.findByName(tag);
+        });
+
 		yield this.render('post', {
-			tagList: [],
+            session: this.session,
+			tagList: tagList,
 			post: post
 		});
 	},
