@@ -16,7 +16,7 @@ module.exports = {
             "1":"密码错误"
         };
         
-        var code = this.query['u'];
+        var code = this.query['c'];
 
         yield this.render('login',{
             msg: code && codeMap[code]
