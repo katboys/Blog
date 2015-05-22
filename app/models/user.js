@@ -8,7 +8,7 @@ module.exports = {
     saveUser : function * (user) {
         var user = new User(user);
 
-        var save = thunkify(user.save,user);
+        var save = thunkify(User.save,user);
 
         yield save();
     },
